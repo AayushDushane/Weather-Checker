@@ -66,6 +66,7 @@ async function fetchUserWeatherInfo(coordinates){
         const data = await response.json();
         loadingScreen.classList.remove("active");
         userInfoContainer.classList.add("active");
+        console.log(data)
         renderWeatherInfo(data);
 
 
@@ -93,7 +94,7 @@ function renderWeatherInfo(weatherInfo){
 
    cityName.innerText = weatherInfo?.name; 
    countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
-   desc.innerText = weatherInfo?.weather?.[0]?.discription;
+   desc.innerText = weatherInfo?.weather?.[0]?.description;
    weatherIcon.src = `http://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
    temp.innerText = `${weatherInfo?.main?.temp} °C`;
    windspeed.innerText = `${weatherInfo?.wind?.speed} m/s`;
@@ -142,11 +143,12 @@ async function fetchSearchWeatherInfo(city){
     grantAccessContainer.classList.remove('active');
 
     try{
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
 
         const data = await response.json();
         loadingScreen.classList.remove('active');
         userInfoContainer.classList.add('active');
+        console.log(data)
         renderWeatherInfo(data);
     }
     catch(err){
